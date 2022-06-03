@@ -1,0 +1,104 @@
+package visao;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class OrcamentoForm  extends JFrame  implements ActionListener{
+	
+	private static final long seralVersionUID = 1L;
+	private JPanel painel;
+	private JScrollPane rolagem;
+    private JLabel id,fornecedor,produto,preco;
+    private JTextField tfid, tffornecedor,tfproduto,tfpreco;
+    private JButton adicionar, buscar, deletar, alterar;
+    private JTextArea verResultados;
+    
+    OrcamentoForm(){
+    	setTitle("Registros de Orçamento");
+    	setBounds(500,100, 750, 650);
+    	painel = new JPanel();
+    	painel.setBackground(new Color(211,211,211));
+    	setContentPane(painel);
+    	setDefaultCloseOperation(EXIT_ON_CLOSE);
+    	setLayout(null);
+    	
+    	id = new JLabel("ID");
+    	id.setBounds(25,20,120,30);
+    	painel.add(id);
+    	
+    	fornecedor = new JLabel("FORNECEDOR");
+    	fornecedor.setBounds(25,68,125,30);
+    	painel.add(fornecedor);
+    	
+    	produto = new JLabel("PRODUTO");
+    	produto.setBounds(25,125,125,30);
+    	painel.add(produto);
+    	
+    	preco = new JLabel("PREÇO");
+    	preco.setBounds(25,180,125,30);
+    	painel.add(preco);
+    	
+    	tfid = new JTextField("1");
+    	tfid.setEditable(false);
+    	tfid.setBounds(55,25,55,20);
+    	painel.add(tfid);
+    	
+    	tffornecedor = new JTextField();
+    	tffornecedor.setBounds(130,69,160,30);
+    	painel.add(tffornecedor);
+    	
+    	tfproduto = new JTextField();
+    	tfproduto.setBounds(130,120,160,30);
+    	painel.add(tfproduto);
+    	
+    	tfpreco = new JTextField();
+    	tfpreco.setBounds(130,180,160,30);
+    	painel.add(tfpreco);
+    	
+    	verResultados = new JTextArea();
+    	verResultados.setEditable(false);
+    	verResultados.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+   
+    	rolagem = new JScrollPane(verResultados);
+    	rolagem.setBounds(40,255,600,200);
+    	painel.add(rolagem);
+    	
+    	adicionar = new JButton("Adicionar");
+    	buscar = new JButton("Buscar");
+    	alterar = new JButton("Alterar");
+    	deletar = new JButton("Apagar");
+    	adicionar.setBounds(600,55, 100, 25);
+    	buscar.setBounds(450,60,100, 25);
+    	alterar.setBounds(290,150,100, 25);
+    	
+    	
+    	alterar.setEnabled(true);
+    	deletar.setEnabled(false);
+    	
+    	painel.add(adicionar);
+    	painel.add(deletar);
+    	painel.add(alterar);
+    	painel.add(buscar);
+    }
+	
+	public static void main(String[] args) {
+		new OrcamentoForm().setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

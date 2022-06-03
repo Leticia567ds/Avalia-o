@@ -1,0 +1,68 @@
+package visao;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class OrcamentoForm  extends JFrame  implements ActionListener{
+	
+	private static final long seralVersionUID = 1L;
+	private JPanel painel;
+    private JLabel id,fornecedor,produto,preco;
+    private JTextField tfid, tffornecedor,tfproduto,preso;
+    private JButton adicionar, buscar, deletar, alterar;
+    private JTextArea verResultados;
+    
+    OrcamentoForm(){
+    	setTitle("Registros de Orçamento");
+    	setBounds(500,100, 750, 650);
+    	painel = new JPanel();
+    	painel.setBackground(new Color(211,211,211));
+    	setContentPane(painel);
+    	setDefaultCloseOperation(EXIT_ON_CLOSE);
+    	setLayout(null);
+    	
+    	id = new JLabel("ID");
+    	id.setBounds(25,20,120,30);
+    	painel.add(id);
+    	
+    	fornecedor = new JLabel("FORNECEDOR");
+    	fornecedor.setBounds(25,68,125,30);
+    	painel.add(fornecedor);
+    	
+    	produto = new JLabel("PRODUTO");
+    	produto.setBounds(25,110,125,30);
+    	painel.add(produto);
+    	
+    	preco = new JLabel("PREÇO");
+    	preco.setBounds(25,150,125,30);
+    	painel.add(preco);
+    	
+    	tfid = new JTextField("1");
+    	tfid.setEditable(false);
+    	tfid.setBounds(100,25,55,20);
+    	painel.add(id);
+    	
+    
+    	
+    	
+    }
+	
+	public static void main(String[] args) {
+		new OrcamentoForm().setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

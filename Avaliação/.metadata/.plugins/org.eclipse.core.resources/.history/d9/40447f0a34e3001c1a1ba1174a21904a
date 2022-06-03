@@ -1,0 +1,65 @@
+package modelo;
+
+import java.util.Objects;
+
+public class Orcamento {
+private int id;
+private String fornecedor;
+private Double preco;
+private boolean maisbarato;
+public Orcamento(int id, String fornecedor, Double preco, boolean maisbarato) {
+	this.id = id;
+	this.fornecedor = fornecedor;
+	this.preco = preco;
+	this.maisbarato = maisbarato;
+}
+
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getFornecedor() {
+	return fornecedor;
+}
+public void setFornecedor(String fornecedor) {
+	this.fornecedor = fornecedor;
+}
+public Double getPreco() {
+	return preco;
+}
+public void setPreco(Double preco) {
+	this.preco = preco;
+}
+public boolean isMaisbarato() {
+	return maisbarato;
+}
+public void setMaisbarato(boolean maisbarato) {
+	this.maisbarato = maisbarato;
+}
+
+@Override
+public int hashCode() {
+	return Objects.hash(fornecedor, id, maisbarato, preco);
+}
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Orcamento other = (Orcamento) obj;
+	return Objects.equals(fornecedor, other.fornecedor) && id == other.id && maisbarato == other.maisbarato
+			&& Objects.equals(preco, other.preco);
+}
+
+@Override
+public String toString() {
+	return "Orcamento [id=" + id + ", fornecedor=" + fornecedor + ", preco=" + preco + ", maisbarato=" + maisbarato
+			+ "]";
+}
+
+}

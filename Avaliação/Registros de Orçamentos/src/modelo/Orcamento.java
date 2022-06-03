@@ -86,8 +86,7 @@ public boolean equals(Object obj) {
 
 @Override
 public String toString() {
-	return "Orcamento [id=" + id + ", fornecedor=" + fornecedor + ", preco=" + preco + ", maisbarato=" + maisbarato
-			+ "]";
+	return  id + "\t"  + fornecedor + "\t " +  preco + "\t" +  maisbarato;
 }
 
 }

@@ -33,7 +33,7 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
     
     OrcamentoForm(){
     	setTitle("Registros de Orçamento");
-    	setBounds(500,100, 750, 650);
+    	setBounds(400,100, 750, 545);
     	painel = new JPanel();
     	painel.setBackground(new Color(211,211,211));
     	setContentPane(painel);
@@ -76,6 +76,7 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
     	verResultados = new JTextArea();
     	verResultados.setEditable(false);
     	verResultados.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+    	preencherAreaDeTexto();
    
     	rolagem = new JScrollPane(verResultados);
     	rolagem.setBounds(40,255,600,200);
@@ -116,8 +117,10 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
     		JOptionPane.showMessageDialog(this, "Favor Preencher todos as informações");
     	}
     	limparCampos();
+    	comprar();
 		preencherAreaDeTexto();
 		OrcamentoProcess.salvar();
+		
     }
     
     private void deletar() {
@@ -129,8 +132,11 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
 			}
 		}
 		 OrcamentoProcess.orc.remove(indice);
+		 comprar();
 			preencherAreaDeTexto();
 			limparCampos();
+			
+			
 			adicionar.setEnabled(true);
 			alterar.setEnabled(false);
 			deletar.setEnabled(false);
@@ -155,7 +161,7 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
     
     private void alterar() {
     	int id = Integer.parseInt(tfid.getText());
-		int indice = -1;
+    	int indice = -1;
 		
 		for(Orcamento f: OrcamentoProcess.orc) {
 			if(f.getId() == id) {
@@ -163,21 +169,23 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
 			}
 		}
 		
-		if (tffornecedor.getText().length() !=0 && tfproduto.getText().length() !=0 && tfpreco.getText().length() != 0) {
-    		OrcamentoProcess.orc.set(indice, new Orcamento(autoId,tffornecedor.getText().toString(),tfproduto.getText().toString(),Double.parseDouble(tfpreco.getText().toString()),false));
+		if (tfid.getText().length() !=0 && tffornecedor.getText().length() !=0 && tfproduto.getText().length() !=0 && tfpreco.getText().length() !=0) {
+    		OrcamentoProcess.orc.set(indice, new Orcamento(Integer.parseInt(tfid.getText().toString()),tffornecedor.getText().toString(),tfproduto.getText().toString(),Double.parseDouble(tfpreco.getText().toString()),false));
+    		comprar();
 			preencherAreaDeTexto();
 			limparCampos();
+			
+			
 		}else {
 			JOptionPane.showMessageDialog(this, "Favor preencher todos os campos.");
 		}
 		adicionar.setEnabled(true);
 		alterar.setEnabled(false);
 		deletar.setEnabled(false);
-		tfid.setText(String.format("%d", OrcamentoProcess.orc.size() +1));
+		tfid.setText(String.format("%d", OrcamentoProcess.orc.size() + 1));
 		OrcamentoProcess.salvar();
 	}
 	
-    
     private void buscar() {
     String entrada = JOptionPane.showInputDialog( this,"Digite o id da manutenção");
 	
@@ -185,7 +193,7 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
 	if(entrada != null) {
 		for (int i = 0; i < entrada.length(); i++) {
 			if(!Character.isDigit(entrada.charAt(i))) {
-				num = false;
+				num = false;	
 			}
 		}
 		
@@ -194,16 +202,16 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
 	}
 	if (num) {
 		int id = Integer.parseInt(entrada);
-		
 		boolean achou = false;
-		for (Orcamento manu : OrcamentoProcess.orc) {
-			if (manu.getId() == id) {
+		
+		for (Orcamento oca : OrcamentoProcess.orc) {
+			if (oca.getId() == id) {
 				achou = true;
-				int indice = OrcamentoProcess.orc.indexOf(manu);
+				int indice = OrcamentoProcess.orc.indexOf(oca);
 				tfid.setText(OrcamentoProcess.orc.get(indice).getId("s"));
 				tffornecedor.setText(OrcamentoProcess.orc.get(indice).getFornecedor());
 				tfproduto.setText(OrcamentoProcess.orc.get(indice).getProduto());
-				tfpreco.setText(OrcamentoProcess.orc.get(indice).getPreco("s"));
+				tfpreco.setText(OrcamentoProcess.orc.get(indice).getPreco("s").replace(",", "."));
 				OrcamentoProcess.salvar();
 				adicionar.setEnabled(false);
 				alterar.setEnabled(true);
@@ -218,10 +226,17 @@ public class OrcamentoForm  extends JFrame  implements ActionListener{
 	}
 }
 	
+    public void comprar() {
+    	for (Orcamento orcamento : OrcamentoProcess.orc) {
+			OrcamentoProcess.comprarPrdutos(orcamento.getProduto());
+		}
+	 }
+   
     
 	public static void main(String[] args) {
+		OrcamentoProcess.abrir();
 		new OrcamentoForm().setVisible(true);
-		OrcamentoProcess.carregar();
+ 
 	}
 
 	@Override

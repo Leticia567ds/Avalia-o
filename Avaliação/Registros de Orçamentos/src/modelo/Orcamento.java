@@ -21,7 +21,7 @@ public Orcamento(String linha) {
 	this.id = Integer.parseInt(linha.split(";")[0]);
 	this.fornecedor = linha.split(";")[1];
 	this.produto = linha.split(";")[2];
-	this.preco = Double.parseDouble(linha.split(";")[3]);
+	this.preco = Double.parseDouble(linha.split(";")[3].replace(",", "."));
 	this.maisbarato = Boolean.parseBoolean(linha.split(";")[4]);
 }
 
@@ -45,13 +45,13 @@ public void setFornecedor(String fornecedor) {
 }
 
 public String getProduto() {
-	return fornecedor;
+	return produto;
 }
 public void setProduto(String produto) {
 	this.produto = produto;
 }
 public String getPreco(String s) {
-	return String.format("%.0f", preco);
+	return String.format("%.2f", preco);
 }
 
 public Double getPreco() {
@@ -86,7 +86,11 @@ public boolean equals(Object obj) {
 
 @Override
 public String toString() {
-	return  id + "\t"  + fornecedor + "\t " +  preco + "\t" +  maisbarato;
+	return  id + "\t" + fornecedor + "\t" + produto + "\t" + String.format("%.2f",preco) + "\t" + maisbarato;
 }
 
+
+public String tocsv() {
+	return  id + ";" + fornecedor + ";" + produto + ";" + String.format("%.2f", preco) +";" + maisbarato +"\r\n";
+}
 }

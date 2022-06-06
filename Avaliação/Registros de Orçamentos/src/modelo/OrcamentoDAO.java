@@ -39,7 +39,7 @@ public class OrcamentoDAO {
 		try {
 			bw = new BufferedWriter(new FileWriter(arquivo));
 			for (Orcamento m : linhas) {
-				bw.write(m.toString());
+				bw.write(m.tocsv());
 			}
 			bw.close();
 		} catch (IOException e) {
